@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
-   "pretest": "npm run lint",
-   "test": "jest",
-   "test:watch": "jest --watchAll --runInBand",
-   "start": "node index.js",
-   "start:watch": "nodemon index.js"
+    "pretest": "npm run lint",
+    "test": "jest",
+    "test:watch": "jest --watchAll --runInBand",
+    "start": "node index.js",
+    "start:watch": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
