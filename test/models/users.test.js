@@ -46,7 +46,7 @@ describe('User Model', () => {
             });
     });
 
-    it('Allows user to sign in', () => {
+    it('allows user to sign in', () => {
         return createUser('meeee1')
             .then(() => {
                 return request(app)
@@ -62,5 +62,27 @@ describe('User Model', () => {
                     token: expect.any(String)
                 });
             });
+    });
+
+    it('has verify route', () => {
+        return createUser('weeee1')
+            .then(user => {
+                return request(app)
+                    .post('/auth/sign')
+                    .send({ username: 'weeee1', password: 'password' })
+                    .then(res => res.body.token);
+            })
+            .then(token => {
+                console.log('token', token);
+                return request(app)
+                    .get('/auth/verify')
+                    .set('Authorization', `Bearer ${token}`);                    
+            })
+            .then(res => {
+                expect(res.body).toEqual({
+                    username: 'weeee1',
+                    _id: expect.any(String)
+                });
+            }); 
     });
 });
