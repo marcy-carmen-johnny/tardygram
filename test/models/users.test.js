@@ -12,8 +12,7 @@ describe('User Model', () => {
     const createUser = (username) => {
         return User.create({
             username, 
-            password: 'password', 
-            photoUrl: 'photo'
+            password: 'password'
         });
     };
     beforeAll(() => {
@@ -34,14 +33,31 @@ describe('User Model', () => {
             .then(() => {
                 return request(app) 
                     .post('/auth/signup')
-                    .send({ username: 'test2', password: 'password', photoUrl: 'photo' });
+                    .send({ username: 'test2', password: 'password' });
             })
             .then(res => {
                 expect(res.body).toEqual({
                     user: {
                         _id: expect.any(String),
-                        username: 'test2',
-                        photoUrl: 'photo'
+                        username: 'test2'
+                    },
+                    token: expect.any(String)
+                });
+            });
+    });
+
+    it('Allows user to sign in', () => {
+        return createUser('meeee1')
+            .then(() => {
+                return request(app)
+                    .post('/auth/signin')
+                    .send({ username: 'meeee1', password: 'password' });
+            })
+            .then(res => {
+                expect(res.body).toEqual({ 
+                    user: {
+                        _id: expect.any(String),
+                        username: 'meeee1',
                     },
                     token: expect.any(String)
                 });
