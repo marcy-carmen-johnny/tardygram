@@ -32,8 +32,8 @@ describe('User Model', () => {
         return createUser('test1')
             .then(() => {
                 return request(app) 
-                    .post('/auth/signup')
-                    .send({ username: 'test2', password: 'password' });
+                .post('/auth/signup')
+                .send({ username: 'test2', password: 'password' });
             })
             .then(res => {
                 expect(res.body).toEqual({
@@ -66,9 +66,9 @@ describe('User Model', () => {
 
     it('has verify route', () => {
         return createUser('weeee1')
-            .then(user => {
+            .then(() => {
                 return request(app)
-                    .post('/auth/sign')
+                    .post('/auth/signin')
                     .send({ username: 'weeee1', password: 'password' })
                     .then(res => res.body.token);
             })
