@@ -4,7 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint .",
+   "pretest": "npm run lint",
+   "test": "jest",
+   "test:watch": "jest --watchAll --runInBand",
+   "start": "node index.js",
+   "start:watch": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
