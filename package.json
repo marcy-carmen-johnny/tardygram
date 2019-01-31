@@ -11,6 +11,9 @@
     "start": "node index.js",
     "start:watch": "nodemon index.js"
   },
+  "jest": {
+    "testEnvironment": "node"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

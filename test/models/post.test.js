@@ -1,6 +1,6 @@
 require('dotenv').config();
 require('../../lib/utils/connect')();
-const { getUser, getPost } = require('./dataHelpers');
+const { getUser, getPost } = require('../dataHelpers');
 const connect = require('../../lib/utils/connect');
 const app = require('../../lib/app');
 const Post = require('../../lib/models/Post');
@@ -12,12 +12,11 @@ const User = require('../../lib/models/User');
 describe('Post model', () => {
    
     it('gets a post', () => {
-        return getUser()
+        return getUser({ username: '6happy' })
             .then(user => {
                 return request(app)
                     .post('/posts')
                     .send({
-                        user: user._id,
                         photoUrl: 'photo',
                         caption: 'caption',
                         tags: ['happy', 'sad']

@@ -8,7 +8,7 @@ const { Types } = require('mongoose');
 const mongoose = require('mongoose');
 const { tokenize, untokenize } = require('../../lib/utils/token');
 
-describe('User Model', () => {
+describe.skip('User Model', () => {
     const createUser = (username) => {
         return User.create({
             username, 
