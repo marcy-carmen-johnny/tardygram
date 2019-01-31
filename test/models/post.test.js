@@ -39,4 +39,28 @@ describe('Post model', () => {
                 expect(body).toHaveLength(posts.length);
             });
     });
+
+    it('gets post by id', () => {
+        return getPost()
+            .then(post => {
+                return Promise.all([
+                    Promise.resolve(post),
+                    request(app)
+                        .get(`/posts/${post._id}`)
+
+                ]);
+
+            })
+            .then(res => {
+                expect(res.body).toEqual({
+                    user: expect.any(String),
+                    __v: 0,
+                    _id: expect.any(String),
+                    caption: expect.any(String),
+                    photoUrl: expect.any(String),
+                    tags: expect.any(Array)
+
+                });
+            });
+    });
 });
