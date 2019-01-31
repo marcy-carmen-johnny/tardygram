@@ -1,4 +1,4 @@
-const Posts = require('../lib/models/Post');
+const Post = require('../lib/models/Post');
 const User = require('../lib/models/User');
 const Chance = require('chance');
 const chance = new Chance();
@@ -15,7 +15,7 @@ const seedData = () => {
         .then(users => {
             return Promise.all(
                 arr.map(() => {
-                    return Posts.create({ 
+                    return Post.create({ 
                         username: chance.pickone(users)._id,
                         comment: chance.sentence()
                     });

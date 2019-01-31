@@ -13,7 +13,8 @@ describe('User Model', () => {
         return User.create({
             username, 
             password: 'password'
-        });
+        })
+            .then(res =>  res.body);
     };
     beforeAll(() => {
         connect();
