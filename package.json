@@ -7,7 +7,7 @@
     "lint": "eslint .",
     "pretest": "npm run lint",
     "test": "jest",
-    "test:watch": "jest --watchAll --runInBand",
+    "test:watch": "jest --watch --runInBand",
     "start": "node index.js",
     "start:watch": "nodemon index.js"
   },

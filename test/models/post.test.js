@@ -39,7 +39,6 @@ describe('Post model', () => {
                 expect(body).toHaveLength(posts.length);
             });
     });
-
     it('gets post by id', () => {
         return getPost()
             .then(post => {
@@ -47,9 +46,9 @@ describe('Post model', () => {
                     Promise.resolve(post),
                     request(app)
                         .get(`/posts/${post._id}`)
-
+ 
                 ]);
-
+ 
             })
             .then(res => {
                 expect(res.body).toEqual({
@@ -59,7 +58,7 @@ describe('Post model', () => {
                     caption: expect.any(String),
                     photoUrl: expect.any(String),
                     tags: expect.any(Array)
-
+ 
                 });
             });
     });
@@ -69,7 +68,7 @@ describe('Post model', () => {
             .then(post => {
                 console.log('Here', post._id);
                 return request(app)
-                    .put(`/posts/${post._id}`)
+                    .patch(`/posts/${post._id}`)
                     // .set('Authorization', `Bearer ${getToken()}`)
                     .send({
                         // photoUrl: 'photo',
