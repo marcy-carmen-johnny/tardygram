@@ -2,7 +2,7 @@ require('dotenv').config();
 const connect = require('../../lib/utils/connect');
 const mongoose = require('mongoose');
 const seedData = require('./seedData');
-// const Tweet = require('../lib/models/Tweet');
+const Post = require('../lib/models/Post');
 const User = require('../../lib/models/User');
 
 const request = require('supertest');
@@ -42,6 +42,20 @@ afterAll(done => {
     mongoose.connection.close(done);
 });
 
+const prepare = model => JSON.parse(JSON.stringify(model));
+const prepareAll = models => models.map(prepare);
+
+const createGetters = Model => {
+    return  {
+        [`get${Model.modelName}`]: (query = {}) => Model.findOne(query).then(prepare),
+        [`get${Model.modelName}s`]: (query = {}) => Model.find(query).then(prepareAll),
+    };
+    
+};
+
 module.exports = {
+    ...createGetters(User),
+    ...createGetters(Post),
     getToken: () => token
 };
+
