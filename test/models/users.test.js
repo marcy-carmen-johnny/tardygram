@@ -32,8 +32,8 @@ describe('User Model', () => {
         return createUser('test1')
             .then(() => {
                 return request(app) 
-                .post('/auth/signup')
-                .send({ username: 'test2', password: 'password' });
+                    .post('/auth/signup')
+                    .send({ username: 'test2', password: 'password' });
             })
             .then(res => {
                 expect(res.body).toEqual({

@@ -1,16 +1,29 @@
-// const Tweet = require('../lib/models/Tweet');
-const User = require('../../lib/models/User');
+const Posts = require('../lib/models/Post');
+const User = require('../lib/models/User');
+const Chance = require('chance');
+const chance = new Chance();
 
 const seedData = () => {
-    const user = [...Array(10)];
+    const users = [...Array(10)];
+    const arr = [...Array(100)];
     return Promise.all(
-        user.map((n, i) => {
+        users.map((n, i) => {
             return User.create({
-                username: `${i}test`, password: 'password2', photoUrl: 'photo1'
-            })
-                .then(users => res.send(users));
-          })
-    });
+                username: `${i}happy`, password: 'password1'
+            });
+        }))
+        .then(users => {
+            return Promise.all(
+                arr.map(() => {
+                    return Posts.create({ 
+                        username: chance.pickone(users)._id,
+                        comment: chance.sentence()
+                    });
+                })
+            );
+        });
+};
 
+console.log('done');
 
 module.exports = seedData; 
