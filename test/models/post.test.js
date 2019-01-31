@@ -63,4 +63,31 @@ describe('Post model', () => {
                 });
             });
     });
+
+    it('updates a post by id', () => {
+        return getPost()
+            .then(post => {
+                console.log('Here', post._id);
+                return request(app)
+                    .put(`/posts/${post._id}`)
+                    // .set('Authorization', `Bearer ${getToken()}`)
+                    .send({
+                        // photoUrl: 'photo',
+                        caption: 'caption1'
+                        // tags: ['happy', 'sad']  
+                    });
+
+            })
+            .then(res => {
+                console.log('user', res.body.caption);
+                expect(res.body).toEqual({
+                    photoUrl: expect.any(String),
+                    caption: 'caption1',
+                    tags: expect.any(Array),
+                    _id: expect.any(String),
+                    user: expect.any(String),
+                    __v: 0 
+                });
+            });
+    });
 });
