@@ -18,8 +18,8 @@ const seedData = () => {
                     return Post.create({ 
                         user: chance.pickone(users)._id,
                         caption: chance.sentence(),
-                        photoUrl: chance.sentence(),
-                        tags: [chance.sentence()]
+                        photoUrl: chance.url({ extensions: ['gif', 'jpg', 'png'] }),
+                        tags: [chance.hashtag(), chance.hashtag()]
                     });
                 })
             );
