@@ -1,12 +1,11 @@
 
-const { getToken } = require('../dataHelpers');
+const { getToken, getPost, getPosts } = require('../dataHelpers');
 const app = require('../../lib/app');
 const request = require('supertest');
 
 
 describe('Post model', () => {
-   
-    it('gets a post', () => {
+    it('creates a post', () => {
         return request(app)
             .post('/posts')
             .set('Authorization', `Bearer ${getToken()}`)
@@ -24,6 +23,20 @@ describe('Post model', () => {
                     _id: expect.any(String),
                     __v: 0    
                 });
+            });
+    });
+
+    it('gets a post', () => {
+        return request(app)
+            .get('/posts')
+            .then(res => {
+                return Promise.all([
+                    Promise.resolve(res.body),
+                    getPosts()
+                ]);
+            })
+            .then(([body, posts]) => {
+                expect(body).toHaveLength(posts.length);
             });
     });
 });
