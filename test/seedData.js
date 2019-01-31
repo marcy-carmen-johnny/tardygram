@@ -9,21 +9,23 @@ const seedData = () => {
     return Promise.all(
         users.map((n, i) => {
             return User.create({
-                username: `${i}happy`, password: 'password1'
+                username: `${i}happy`, password: 'password'
             });
         }))
         .then(users => {
             return Promise.all(
                 arr.map(() => {
                     return Post.create({ 
-                        username: chance.pickone(users)._id,
-                        comment: chance.sentence()
+                        user: chance.pickone(users)._id,
+                        caption: chance.sentence(),
+                        photoUrl: chance.sentence(),
+                        tags: [chance.sentence()]
                     });
                 })
             );
         });
 };
 
-console.log('done');
+console.log('seed data loaded');
 
 module.exports = seedData; 

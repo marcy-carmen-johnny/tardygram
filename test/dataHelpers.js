@@ -18,7 +18,7 @@ beforeEach(done => {
 
 
 beforeEach(() => {
-    return seedData({ totalUsers: 3, totalTweets: 5 });
+    return seedData();
 });
 
 let token;
@@ -26,7 +26,6 @@ let token;
 beforeEach(() => {
     return User.findOne({ username: '6happy' })
         .then(user => {
-            console.log('User => ', user);
             return request(app)
                 .post('/auth/signin')
                 .send({

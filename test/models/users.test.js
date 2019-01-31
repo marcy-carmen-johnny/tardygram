@@ -6,9 +6,8 @@ const User = require('../../lib/models/User');
 const request = require('supertest');
 const { Types } = require('mongoose');
 const mongoose = require('mongoose');
-const { tokenize, untokenize } = require('../../lib/utils/token');
 
-describe.skip('User Model', () => {
+describe('User Model', () => {
     const createUser = (username) => {
         return User.create({
             username, 
