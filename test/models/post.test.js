@@ -5,6 +5,30 @@ const request = require('supertest');
 
 
 describe('Post model', () => {
+    it('gets post by id', () => {
+        return getPost()
+            .then(post => {
+                console.log('POST', post);
+                return Promise.all([
+                    Promise.resolve(post),
+                    request(app)
+                        .get(`/posts/${post._id}`)
+
+                ]);
+
+            })
+            .then(([post, res]) => {
+                console.log('res', res.body);
+                expect(res.body).toEqual({
+                    user: expect.any(String),
+                    __v: 0,
+                    _id: expect.any(String),
+                    caption: expect.any(String),
+                    photoUrl: expect.any(String),
+                    tags: expect.any(Array)
+                });
+            });
+    });
     it('creates a post', () => {
         return request(app)
             .post('/posts')
@@ -39,45 +63,18 @@ describe('Post model', () => {
                 expect(body).toHaveLength(posts.length);
             });
     });
-    it('gets post by id', () => {
-        return getPost()
-            .then(post => {
-                return Promise.all([
-                    Promise.resolve(post),
-                    request(app)
-                        .get(`/posts/${post._id}`)
-
-                ]);
-
-            })
-            .then(res => {
-                expect(res.body).toEqual({
-                    user: expect.any(String),
-                    __v: 0,
-                    _id: expect.any(String),
-                    caption: expect.any(String),
-                    photoUrl: expect.any(String),
-                    tags: expect.any(Array)
-                });
-
-            });
-    });
     it('updates a post by id', () => {
         return getPost()
             .then(post => {
-                console.log('Here', post._id);
                 return request(app)
                     .patch(`/posts/${post._id}`)
                     // .set('Authorization', `Bearer ${getToken()}`)
                     .send({
-                        // photoUrl: 'photo',
                         caption: 'caption1'
-                        // tags: ['happy', 'sad']  
                     });
 
             })
             .then(res => {
-                console.log('user', res.body.caption);
                 expect(res.body).toEqual({
                     photoUrl: expect.any(String),
                     caption: 'caption1',
@@ -86,6 +83,19 @@ describe('Post model', () => {
                     user: expect.any(String),
                     __v: 0
                 });
+            });
+    });
+    it('deletes a post', () => {
+        return getPost()
+            .then(post => {
+                return Promise.all([
+                    Promise.resolve(post._id),
+                    request(app)
+                        .delete(`/posts/${post._id}`)
+                ]);
+            })
+            .then(([post, res]) => {
+                expect(res.body).toEqual({ deleted: 1 });
             });
     });
 });
