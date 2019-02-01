@@ -46,9 +46,9 @@ describe('Post model', () => {
                     Promise.resolve(post),
                     request(app)
                         .get(`/posts/${post._id}`)
- 
+
                 ]);
- 
+
             })
             .then(res => {
                 expect(res.body).toEqual({
@@ -58,11 +58,10 @@ describe('Post model', () => {
                     caption: expect.any(String),
                     photoUrl: expect.any(String),
                     tags: expect.any(Array)
- 
                 });
+
             });
     });
-
     it('updates a post by id', () => {
         return getPost()
             .then(post => {
@@ -85,7 +84,7 @@ describe('Post model', () => {
                     tags: expect.any(Array),
                     _id: expect.any(String),
                     user: expect.any(String),
-                    __v: 0 
+                    __v: 0
                 });
             });
     });

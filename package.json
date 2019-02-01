@@ -7,9 +7,10 @@
     "lint": "eslint .",
     "pretest": "npm run lint",
     "test": "jest",
-    "test:watch": "jest --watch --runInBand",
+    "test:watch": "jest --watchAll --runInBand",
     "start": "node server.js",
-    "start:watch": "nodemon server.js"
+    "start:watch": "nodemon server.js",
+    "seed": "node seed.js"
   },
   "jest": {
     "testEnvironment": "node"
